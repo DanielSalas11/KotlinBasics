@@ -1,5 +1,7 @@
 package daniel.salas.kotlinbasics
 
+import java.lang.IllegalArgumentException
+
 fun main(){
 /*
     //print("First character $firstChar and the length of myStr is ${myString.length}")
@@ -135,7 +137,7 @@ fun main(){
     var result = addUp(10,20)
     println("result is $result")
     println("average is ${average(5f,10f)}")
- */
+
     var nullableName : String? = "Denis"
     //nullableName = null
 
@@ -144,8 +146,26 @@ fun main(){
     //println("name is $name")
 
     println(nullableName!!.toLowerCase())
-}
+ */
+/*
+    var me = Person("Daniel","Salas")
+    var john = Person()
+    var johnPeterson = Person(lastName = "Peterson")
 
+    var iPhone10 = MobilePhone("iOS","Apple","iPhone10")
+    var honor20 = MobilePhone("Android","Huawei","Honor")
+    var blackberry = MobilePhone()
+
+    var ramon = Person("Ramon", "Gonzalez", 34)
+    ramon.hobby = "cooking"
+    ramon.stateHobby()
+
+ */
+
+var myCar = Car()
+    println("brand is: ${myCar.myBrand}")
+}
+/*
 fun addUp(a: Int, b: Int) : Int{
     return a+b
 }
@@ -156,4 +176,55 @@ fun average(a: Float, b: Float) : Float{
 
 fun myFunction(){
     print("Called from myFunction")
+
+}
+ */
+
+class Car(){
+    lateinit var owner : String
+
+    val myBrand: String = "BMW"
+
+    get(){
+        return field.lowercase()
+    }
+
+    var maxSpeed: Int = 250
+        set(value){
+            field = if (value > 0) value else throw IllegalArgumentException("Max speed cannot be lower than 0.")
+        }
+
+    var myModel : String = "M5"
+        private set
+
+    init {
+        this.owner = "Frank"
+    }
+}
+
+class Person(firstName: String = "John", lastName: String = "Doe"){
+    var age : Int? = null
+    var hobby : String = "watch Netflix"
+    var firstName: String? = null
+    init {
+        this.firstName = firstName
+        println("Initialized a new person whose name is $firstName and last name is $lastName")
+    }
+
+    constructor(firstName: String, lastName: String, age: Int)
+        : this(firstName,lastName){
+            this.age = age
+            println("Initialized a new Person object with, name $firstName, last name $lastName and age $age")
+    }
+
+    fun stateHobby(){
+        println("$firstName's hobby is $hobby")
+    }
+}
+
+class MobilePhone(osName: String = "Unknown", brand: String= "Unknown", model: String= "Unknown"){
+
+    init {
+        println("Here the osName is $osName, brand is $brand, model is $model")
+    }
 }
