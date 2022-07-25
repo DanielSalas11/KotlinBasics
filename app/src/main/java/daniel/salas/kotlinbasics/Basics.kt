@@ -2,7 +2,9 @@ package daniel.salas.kotlinbasics
 
 import java.lang.IllegalArgumentException
 
-fun main(){
+data class User(val id: Long, var name: String)
+
+//fun main(){
 /*
     //print("First character $firstChar and the length of myStr is ${myString.length}")
 
@@ -154,17 +156,38 @@ fun main(){
 
     var iPhone10 = MobilePhone("iOS","Apple","iPhone10")
     var honor20 = MobilePhone("Android","Huawei","Honor")
-    var blackberry = MobilePhone()
+    iPhone10.chargeBattery(30)
 
+ */
+/*
     var ramon = Person("Ramon", "Gonzalez", 34)
     ramon.hobby = "cooking"
     ramon.stateHobby()
 
  */
 
+
+/*
 var myCar = Car()
     println("brand is: ${myCar.myBrand}")
-}
+ */
+    /*
+    val user1 = User(1,"Dennis")
+
+    user1.name = "Michael"
+    val user2 = User(1,"Michael")
+    println(user1 == user2)
+
+    println("User Details: $user1")
+
+    val updatedUser = user1.copy(name="Denis Panjuta")
+    println(updatedUser)
+
+    println(updatedUser.component1())
+    println(updatedUser.component2())
+
+    val(id,name) = updatedUser
+     */
 /*
 fun addUp(a: Int, b: Int) : Int{
     return a+b
@@ -180,6 +203,44 @@ fun myFunction(){
 }
  */
 
+open class Car(val name: String, val brand: String){
+    open var range: Float = 0.0f
+
+    fun extendRange(amount: Float){
+        if (amount > 0)
+            range += amount
+    }
+
+    open fun drive(distance: Float){
+        println("Drove for $distance km")
+    }
+}
+
+class ElectricCar(name: String, brand: String, batteryLife: Float) : Car(name,brand){
+    override var range = batteryLife * 6f
+    var chargerType = "Type1"
+
+    override fun drive(distance: Float) {
+        println("Drove for $distance KM on electricity.")
+        }
+
+    fun drive(){
+        println("Drove for $range KM on electricity.")
+    }
+    }
+
+fun main(){
+    var nissanSentra = Car("Sentra", "Nissan")
+    var teslaS = ElectricCar("S-Model","Tesla", 85.0f)
+
+    teslaS.extendRange(200f)
+    nissanSentra.drive(200f)
+    teslaS.drive(200f)
+    teslaS.drive()
+    teslaS.chargerType = "Type2"
+}
+
+/*
 class Car(){
     lateinit var owner : String
 
@@ -223,8 +284,15 @@ class Person(firstName: String = "John", lastName: String = "Doe"){
 }
 
 class MobilePhone(osName: String = "Unknown", brand: String= "Unknown", model: String= "Unknown"){
-
+private var battery = 30
     init {
-        println("Here the osName is $osName, brand is $brand, model is $model")
+        println("Here the osName is $osName, brand is $brand, model is $model, battery is $battery")
+    }
+
+    fun chargeBattery(chargedBy:Int){
+        println("Past phone's battery: $battery")
+        println("Current phone's battery: ${battery + chargedBy}")
     }
 }
+
+ */
